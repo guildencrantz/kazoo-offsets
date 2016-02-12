@@ -11,8 +11,10 @@ Simple golang based (kazoo-go and sarama) application to monitor Kafka offsets s
 For current execution flags see `kazoo-offsets -h`
 
 In general if you're using CLI flags the pattern is:
+
     kazoo-offsets -zookeeper $(ZK_HOST):2181 -group-id $(KAFKA_GROUP_ID) -topic $(KAFKA_TOPIC)
 
 If you want the values to update I highly recommeend using [watch](http://linux.die.net/man/1/watch)
+
     watch -n 5 kazoo-offsets -zookeeper $(ZK_HOST):2181 -group-id $(KAFKA_GROUP_ID) -topic $(KAFKA_TOPIC)
 
