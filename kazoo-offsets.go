@@ -90,12 +90,15 @@ func main() {
 	}
 
 	for p, o := range offsets[*topic] {
-		owner, err := g.PartitionOwner(*topic, p)
-		if err != nil {
+		id := "UNCLAIMED"
+		if owner, err := g.PartitionOwner(*topic, p); err != nil {
 			printErrorAndExit(69, "Failed to get partition owner for Consumer Group %s topic %s partition %d: err", group, topic, p, err)
+		} else if owner != nil {
+			id = owner.ID
 		}
+
 		co.Partitions[p] = &PartitionOffsets{
-			Owner:   owner.ID,
+			Owner:   id,
 			Current: o,
 		}
 	}
